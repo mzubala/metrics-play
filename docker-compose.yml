@@ -1,0 +1,30 @@
+services:
+  app-server:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      - graphite
+  graphite:
+    image: graphiteapp/graphite-statsd
+    ports:
+      - "9080:80"
+      - "9003-9004:2003-2004"
+      - "9023-9024:2023-2024"
+      - "8125:8125/udp"
+      - "8126:8126"
+    volumes:
+      - ./data/graphite:/opt/graphite/storage
+  db:
+    image: postgres
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
