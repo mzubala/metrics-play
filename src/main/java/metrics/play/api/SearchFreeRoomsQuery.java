@@ -1,6 +1,6 @@
 package metrics.play.api;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class SearchFreeRoomsQuery {
